@@ -1,0 +1,112 @@
+.header on
+.mode column
+  
+.print
+.print "TB_CLIENTES"
+.print
+  
+CREATE TABLE TB_CLIENTES(
+  ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  NOME_CLI TEXT NOT NULL,
+  ENDERECO TEXT NOT NULL
+);
+
+INSERT INTO TB_CLIENTES(NOME_CLI, ENDERECO)
+  VALUES("José Maria Alves", "Av João Pessoa 2081"),
+ ("Maria Conceição Tavares", "Rua Waldery Uchoa 4"),
+ ("João Cosme Fonseca", "Rua Padre Franscisco Pinto 790");
+
+SELECT * FROM TB_CLIENTES;
+
+.print
+.print "TB_VENDEDORES"
+.print
+  
+CREATE TABLE TB_VENDEDORES(
+  ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  NOME TEXT NOT NULL
+);
+
+INSERT INTO TB_VENDEDORES(NOME)
+  VALUES("Luciano Arruda Cavalcante"),
+   ("Joana Alves Pessoa"),
+   ("Mercia Bessa Santos"),
+   ("Antonio de Padua Lopes");
+
+SELECT * FROM TB_VENDEDORES;
+
+.print
+.print "TB_PRODUTOS"
+.print
+  
+CREATE TABLE TB_PRODUTOS(
+  ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  CODIGO INTEGER NOT NULL,
+  NOME TEXT NOT NULL,
+  PRECO_UNITARIO REAL NOT NULL
+);
+
+INSERT INTO TB_PRODUTOS(CODIGO, NOME, PRECO_UNITARIO)
+  VALUES(100,"Arroz Tio João", 6.00),
+   (150,"Feijão Carioquinha",            5.50),
+   (200,"Macarrão Fortaleza",            3.50),
+   (250,"Oleo de Soja",                  4.00),
+   (300,"Manteiga Betania 500g",         8.00),
+   (350,"Queijo Ricota Betania",         7.00);
+
+SELECT * FROM TB_PRODUTOS;
+
+.print
+.print "TB_NOTAS_FISCAIS"
+.print
+  
+CREATE TABLE TB_NOTAS_FISCAIS(
+  NUM_NF INTEGER NOT NULL PRIMARY KEY,
+  COD_CLI INTEGER NOT NULL,
+  COD_VEND INTEGER NOT NULL,
+  SERIE_NF TEXT NOT NULL
+);
+
+INSERT INTO TB_NOTAS_FISCAIS(COD_CLI,COD_VEND,NUM_NF,SERIE_NF)
+  VALUES(1,1,100,"A"),
+    (3,2,101,"A"),
+    (2,3,102,"A"),
+    (4,4,103,"A"),    
+    (2,1,104,"A"),
+    (1,3,105,"A"),
+    (3,2,106,"A"),
+    (4,4,107,"A");
+
+SELECT * FROM TB_NOTAS_FISCAIS;
+
+.print
+.print "TB_ITENS_NOTAS_FISCAIS"
+.print
+  
+CREATE TABLE TB_ITENS_NOTAS_FISCAIS(
+  NUM_NF INTEGER NOT NULL,
+  COD_PRO INTEGER NOT NULL,
+  QTD INTEGER NOT NULL,
+  FOREIGN KEY(COD_PRO) REFERENCES TB_PRODUTO(ID)
+  PRIMARY KEY(NUM_NF,COD_PRO)
+);
+
+INSERT INTO TB_ITENS_NOTAS_FISCAIS(NUM_NF,COD_PRO,QTD)
+  VALUES(100,100,5),
+  (100,150,4),
+  (100,200,4),
+  (101,250,8),
+  (101,300,4),
+  (102,100,6),
+  (102,250,8),
+  (103,300,4),
+  (103,350,4),
+  (104,150,10),
+  (104,100,12),
+  (106,150,10),
+  (106,200,10),
+  (107,100,10),
+  (107,150,10),
+  (107,200,10);
+.print
+SELECT * FROM  TB_ITENS_NOTAS_FISCAIS;
